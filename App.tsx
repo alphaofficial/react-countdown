@@ -15,12 +15,10 @@ export default function App() {
       setDisplaySeconds((prev) => prev - 1);
 
       if (displaySeconds === 0 && displayMinutes > 0) {
-        //subtract 1 from minutes and add 59 to seconds
         setDisplayMinutes((prev) => prev - 1);
         setDisplaySeconds((prev) => prev + 60);
       }
       if (displayMinutes === 0 && displaySeconds === 0) {
-        //stop timer
         setStart(false);
       }
     }
@@ -50,6 +48,10 @@ export default function App() {
     setStart(true);
   };
 
+  const stopTimer = () => {
+    setStart(false);
+  };
+
   useInterval(() => {
     return timerCountdown();
   }, 1000);
@@ -64,6 +66,7 @@ export default function App() {
               type="number"
               name="minutes"
               value={minutes}
+              max={60}
               onChange={(e) => {
                 setMinutes(e.target.valueAsNumber);
                 setDisplayMinutes(e.target.valueAsNumber);
@@ -75,8 +78,9 @@ export default function App() {
             <label>Seconds</label>
             <input
               type="number"
-              name="minutes"
+              name="seconds"
               value={seconds}
+              max={60}
               onChange={(e) => {
                 setSeconds(e.target.valueAsNumber);
                 setDisplaySeconds(e.target.valueAsNumber);
